@@ -306,12 +306,122 @@
 
         <!-- Connect -->
         <div class="menu-item">
-            <a href="#connect" class="menu-parent">
+            <div class="menu-parent expandable" onclick="toggleSubmenu('connect')">
                 <div class="menu-icon">
                     <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/connect_and_share.png" alt="Connect">
                 </div>
                 <div class="menu-text">Connect</div>
-            </a>
+                <svg class="menu-arrow" id="arrow-connect" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                </svg>
+            </div>
+            <div class="submenu" id="submenu-connect">
+                <a href="#embracing-neurodiversity" class="submenu-item">
+                    <div class="submenu-icon">
+                        <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/embracing_neurodiversity.png" alt="Embracing Neurodiversity">
+                    </div>
+                    <div class="submenu-text">Embracing Neurodiversity</div>
+                </a>
+                <a href="#mens-chat" class="submenu-item">
+                    <div class="submenu-icon">
+                        <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/mens_chat.png" alt="Mens Chat">
+                    </div>
+                    <div class="submenu-text">Mens Chat</div>
+                </a>
+                <a href="#wall-of-love" class="submenu-item">
+                    <div class="submenu-icon">
+                        <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/wall_of_love.png" alt="Wall of Love">
+                    </div>
+                    <div class="submenu-text">Wall of Love</div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Programs -->
+        <div class="menu-item">
+            <div class="menu-parent expandable" onclick="toggleSubmenu('programs')">
+                <div class="menu-icon">
+                    <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/your_programs.png" alt="Programs">
+                </div>
+                <div class="menu-text">Programs</div>
+                <svg class="menu-arrow" id="arrow-programs" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                </svg>
+            </div>
+            <div class="submenu" id="submenu-programs">
+                <a href="#intro-to-programs" class="submenu-item">
+                    <div class="submenu-icon">
+                        <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/program_design.png" alt="Introduction to Programs">
+                    </div>
+                    <div class="submenu-text">Introduction to Programs</div>
+                </a>
+                <a href="#getting-started-program" class="submenu-item">
+                    <div class="submenu-icon">
+                        <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/getting_started.png" alt="Getting Started">
+                    </div>
+                    <div class="submenu-text">Getting Started</div>
+                </a>
+                <a href="#everyday-mobility" class="submenu-item">
+                    <div class="submenu-icon">
+                        <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/everyday_mobility.png" alt="Every Day Mobility">
+                    </div>
+                    <div class="submenu-text">Every Day Mobility</div>
+                </a>
+                <a href="#bone-strength-mobility" class="submenu-item">
+                    <div class="submenu-icon">
+                        <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/bone_strength_stability.png" alt="Bone Strength and Mobility">
+                    </div>
+                    <div class="submenu-text">Bone Strength and Mobility</div>
+                </a>
+                <a href="#rest-restore" class="submenu-item">
+                    <div class="submenu-icon">
+                        <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/rest_restore.png" alt="Rest & Restore">
+                    </div>
+                    <div class="submenu-text">Rest & Restore</div>
+                </a>
+                <a href="#calming-inside-out" class="submenu-item">
+                    <div class="submenu-icon">
+                        <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/calming_inside_out.png" alt="Calming Inside Out">
+                    </div>
+                    <div class="submenu-text">Calming Inside Out</div>
+                </a>
+                <a href="#pots-flares" class="submenu-item">
+                    <div class="submenu-icon">
+                        <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/pots_flares.png" alt="POTs & Flares">
+                    </div>
+                    <div class="submenu-text">POTs & Flares</div>
+                </a>
+                <a href="#feet-lower-limb" class="submenu-item">
+                    <div class="submenu-icon">
+                        <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/feet_icon.png" alt="Feet & Lower Limb">
+                    </div>
+                    <div class="submenu-text">Feet & Lower Limb</div>
+                </a>
+                <a href="#hips-pelvis" class="submenu-item">
+                    <div class="submenu-icon">
+                        <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/pelvis_icon.png" alt="Hips & Pelvis">
+                    </div>
+                    <div class="submenu-text">Hips & Pelvis</div>
+                </a>
+                <a href="#shoulder-stability" class="submenu-item">
+                    <div class="submenu-icon">
+                        <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/shoulder_stability.png" alt="Shoulder Stability">
+                    </div>
+                    <div class="submenu-text">Shoulder Stability</div>
+                </a>
+                <a href="#calendars" class="submenu-item">
+                    <div class="submenu-icon">
+                        <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/calender.png" alt="Calendars">
+                    </div>
+                    <div class="submenu-text">Calendars</div>
+                </a>
+                <a href="#reformer-foundations" class="submenu-item">
+                    <div class="submenu-icon">
+                        <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/refermer.png" alt="Refermer Foundations">
+                    </div>
+                    <div class="submenu-text">Refermer Foundations</div>
+                </a>
+            </div>
         </div>
 
         <!-- Events -->
