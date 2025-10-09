@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Menu</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+
+        .menu-container {
+            max-width: 360px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .menu-item {
+            border-bottom: 1px solid #e8e8e8;
+        }
+
+        .menu-item:last-child {
+            border-bottom: none;
+        }
+
+        .menu-parent {
+            display: flex;
+            align-items: center;
+            padding: 16px 20px;
+            cursor: pointer;
+            transition: background 0.2s;
+            text-decoration: none;
+            color: #333;
+        }
+
+        .menu-parent:hover {
+            background: #f9f9f9;
+        }
+
+        .menu-parent.expandable:hover {
+            background: #f0fdf4;
+        }
+
+        .menu-icon {
+            width: 32px;
+            height: 32px;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+
+        .menu-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .menu-text {
+            flex: 1;
+            font-size: 16px;
+            font-weight: 500;
+            color: #1a1a1a;
+        }
+
+        .menu-arrow {
+            width: 20px;
+            height: 20px;
+            transition: transform 0.3s;
+            color: #52C9A3;
+        }
+
+        .menu-arrow.active {
+            transform: rotate(90deg);
+        }
+
+        .submenu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            background: #f9fafb;
+        }
+
+        .submenu.active {
+            max-height: 500px;
+        }
+
+        .submenu-item {
+            display: flex;
+            align-items: center;
+            padding: 14px 20px 14px 64px;
+            cursor: pointer;
+            transition: background 0.2s;
+            text-decoration: none;
+            color: #333;
+            border-top: 1px solid #e8e8e8;
+        }
+
+        .submenu-item:hover {
+            background: #f0fdf4;
+        }
+
+        .submenu-icon {
+            width: 24px;
+            height: 24px;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+
+        .submenu-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .submenu-text {
+            font-size: 15px;
+            color: #4a5568;
+        }
+    </style>
+</head>
+<body>
+    <div class="menu-container">
+        <!-- Welcome -->
+        <div class="menu-item">
+            <div class="menu-parent expandable" onclick="toggleSubmenu('welcome')">
+                <div class="menu-icon">
+                    <img src="./icons/welcome-book.png" alt="Welcome">
+                </div>
+                <div class="menu-text">Welcome</div>
+                <svg class="menu-arrow" id="arrow-welcome" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                </svg>
+            </div>
+            <div class="submenu" id="submenu-welcome">
+                <a href="#start-here" class="submenu-item">
+                    <div class="submenu-icon">
+                        <img src="./icons/welcome-flag.png" alt="Start Here">
+                    </div>
+                    <div class="submenu-text">Start Here</div>
+                </a>
+                <a href="#welcome-checklist" class="submenu-item">
+                    <div class="submenu-icon">
+                        <img src="./icons/welcome-hand.png" alt="Welcome Checklist">
+                    </div>
+                    <div class="submenu-text">Welcome Checklist</div>
+                </a>
+                <a href="#say-hello" class="submenu-item">
+                    <div class="submenu-icon">
+                        <img src="./icons/welcome-hand.png" alt="Say Hello">
+                    </div>
+                    <div class="submenu-text">Say Hello</div>
+                </a>
+                <a href="#getting-started" class="submenu-item">
+                    <div class="submenu-icon">
+                        <img src="./icons/welcome-book.png" alt="Getting Started Course">
+                    </div>
+                    <div class="submenu-text">Getting Started Course</div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Foundations -->
+        <div class="menu-item">
+            <a href="#foundations" class="menu-parent">
+                <div class="menu-icon">
+                    <img src="./icons/foundations.png" alt="Foundations">
+                </div>
+                <div class="menu-text">Foundations</div>
+            </a>
+        </div>
+
+        <!-- Move Your Body -->
+        <div class="menu-item">
+            <a href="#move-your-body" class="menu-parent">
+                <div class="menu-icon">
+                    <img src="./icons/move-your-body.png" alt="Move Your Body">
+                </div>
+                <div class="menu-text">Move Your Body</div>
+            </a>
+        </div>
+
+        <!-- Calm Your Mind -->
+        <div class="menu-item">
+            <div class="menu-parent expandable" onclick="toggleSubmenu('calm')">
+                <div class="menu-icon">
+                    <img src="./icons/calm-lotus.png" alt="Calm Your Mind">
+                </div>
+                <div class="menu-text">Calm Your Mind</div>
+                <svg class="menu-arrow" id="arrow-calm" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                </svg>
+            </div>
+            <div class="submenu" id="submenu-calm">
+                <a href="#targeted-release" class="submenu-item">
+                    <div class="submenu-icon">
+                        <img src="./icons/calm-water-blue.png" alt="Targeted Release">
+                    </div>
+                    <div class="submenu-text">Targeted Release</div>
+                </a>
+                <a href="#dynamic-meditations" class="submenu-item">
+                    <div class="submenu-icon">
+                        <img src="./icons/calm-lotus-blue.png" alt="Dynamic Meditations">
+                    </div>
+                    <div class="submenu-text">Dynamic Meditations</div>
+                </a>
+                <a href="#full-body-release" class="submenu-item">
+                    <div class="submenu-icon">
+                        <img src="./icons/calm-person-green.png" alt="Full Body Release">
+                    </div>
+                    <div class="submenu-text">Full Body Release</div>
+                </a>
+                <a href="#heart-and-soul" class="submenu-item">
+                    <div class="submenu-icon">
+                        <img src="./icons/calm-heart-blue.png" alt="Heart & Soul">
+                    </div>
+                    <div class="submenu-text">Heart & Soul</div>
+                </a>
+                <a href="#unwind-into-sleep" class="submenu-item">
+                    <div class="submenu-icon">
+                        <img src="./icons/calm-cat-blue.png" alt="Unwind into Sleep">
+                    </div>
+                    <div class="submenu-text">Unwind into Sleep</div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Connect -->
+        <div class="menu-item">
+            <a href="#connect" class="menu-parent">
+                <div class="menu-icon">
+                    <img src="./icons/connect.png" alt="Connect">
+                </div>
+                <div class="menu-text">Connect</div>
+            </a>
+        </div>
+
+        <!-- Events -->
+        <div class="menu-item">
+            <a href="#events" class="menu-parent">
+                <div class="menu-icon">
+                    <img src="./icons/events.png" alt="Events">
+                </div>
+                <div class="menu-text">Events</div>
+            </a>
+        </div>
+
+        <!-- Learn & Grow -->
+        <div class="menu-item">
+            <a href="#learn-and-grow" class="menu-parent">
+                <div class="menu-icon">
+                    <img src="./icons/learn-grow.png" alt="Learn & Grow">
+                </div>
+                <div class="menu-text">Learn & Grow</div>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        function toggleSubmenu(id) {
+            const submenu = document.getElementById('submenu-' + id);
+            const arrow = document.getElementById('arrow-' + id);
+            
+            submenu.classList.toggle('active');
+            arrow.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>
