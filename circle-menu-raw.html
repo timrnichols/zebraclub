@@ -91,7 +91,7 @@
         }
 
         .submenu.active {
-            max-height: 500px;
+            max-height: 800px;
         }
 
         .submenu-item {
@@ -171,22 +171,92 @@
 
         <!-- Foundations -->
         <div class="menu-item">
-            <a href="#foundations" class="menu-parent">
+            <div class="menu-parent expandable" onclick="toggleSubmenu('foundations')">
                 <div class="menu-icon">
                     <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/foundation_cubes.png" alt="Foundations">
                 </div>
                 <div class="menu-text">Foundations</div>
-            </a>
+                <svg class="menu-arrow" id="arrow-foundations" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                </svg>
+            </div>
+            <div class="submenu" id="submenu-foundations">
+                <a href="#level-1" class="submenu-item">
+                    <div class="submenu-icon">
+                        <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/level_1.png" alt="Level 1">
+                    </div>
+                    <div class="submenu-text">Level 1</div>
+                </a>
+                <a href="#level-2" class="submenu-item">
+                    <div class="submenu-icon">
+                        <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/level_2.png" alt="Level 2">
+                    </div>
+                    <div class="submenu-text">Level 2</div>
+                </a>
+                <a href="#level-3" class="submenu-item">
+                    <div class="submenu-icon">
+                        <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/level_3.png" alt="Level 3">
+                    </div>
+                    <div class="submenu-text">Level 3</div>
+                </a>
+            </div>
         </div>
 
         <!-- Move Your Body -->
         <div class="menu-item">
-            <a href="#move-your-body" class="menu-parent">
+            <div class="menu-parent expandable" onclick="toggleSubmenu('movebody')">
                 <div class="menu-icon">
                     <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/move_your_body.png" alt="Move Your Body">
                 </div>
                 <div class="menu-text">Move Your Body</div>
-            </a>
+                <svg class="menu-arrow" id="arrow-movebody" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                </svg>
+            </div>
+            <div class="submenu" id="submenu-movebody">
+                <a href="#mindful-stress" class="submenu-item">
+                    <div class="submenu-icon">
+                        <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/mindful_stress.png" alt="Mindful & Stress">
+                    </div>
+                    <div class="submenu-text">Mindful & Stress</div>
+                </a>
+                <a href="#sleep-fatigue" class="submenu-item">
+                    <div class="submenu-icon">
+                        <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/sleep_fatigue.png" alt="Sleep & Fatigue">
+                    </div>
+                    <div class="submenu-text">Sleep & Fatigue</div>
+                </a>
+                <a href="#pain-management" class="submenu-item">
+                    <div class="submenu-icon">
+                        <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/pain_management.png" alt="Pain Management">
+                    </div>
+                    <div class="submenu-text">Pain Management</div>
+                </a>
+                <a href="#stability" class="submenu-item">
+                    <div class="submenu-icon">
+                        <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/stability.png" alt="Stability">
+                    </div>
+                    <div class="submenu-text">Stability</div>
+                </a>
+                <a href="#strength-connect" class="submenu-item">
+                    <div class="submenu-icon">
+                        <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/strength_connect.png" alt="Strength & Connect">
+                    </div>
+                    <div class="submenu-text">Strength & Connect</div>
+                </a>
+                <a href="#cardio" class="submenu-item">
+                    <div class="submenu-icon">
+                        <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/cardio.png" alt="Cardio">
+                    </div>
+                    <div class="submenu-text">Cardio</div>
+                </a>
+                <a href="#challenge" class="submenu-item">
+                    <div class="submenu-icon">
+                        <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/challenge.png" alt="Challenge">
+                    </div>
+                    <div class="submenu-text">Challenge</div>
+                </a>
+            </div>
         </div>
 
         <!-- Calm Your Mind -->
