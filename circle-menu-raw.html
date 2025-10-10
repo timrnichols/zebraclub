@@ -31,10 +31,10 @@
             gap: 8px;
             padding: 12px 16px;
             margin-bottom: 10px;
-            background: rgba(82, 201, 163, 0.2);
+            background: rgba(55, 183, 131, 0.2);
             border: none;
             border-radius: 12px;
-            color: #52C9A3;
+            color: #37b783;
             font-size: 16px;
             font-weight: 500;
             cursor: pointer;
@@ -46,7 +46,7 @@
         }
 
         .back-button:hover {
-            background: rgba(82, 201, 163, 0.3);
+            background: rgba(55, 183, 131, 0.3);
         }
 
         .menu-view {
@@ -64,14 +64,14 @@
 
         .menu-parent {
             display: flex;
-            align-items: flex-end;
+            align-items: center;
             justify-content: space-between;
             padding: 20px;
             cursor: pointer;
             transition: transform 0.2s, box-shadow 0.2s;
             text-decoration: none;
             color: white;
-            background: #52C9A3;
+            background: #37b783;
             border-radius: 12px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.2);
             min-height: 100px;
@@ -158,18 +158,16 @@
         }
 
         .menu-icon {
-            width: 64px;
-            height: 64px;
-            margin-left: 16px;
+            width: 80px;
+            height: 80px;
+            margin-left: 0;
+            margin-right: 10px;
             flex-shrink: 0;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 10px;
+            padding: 12px;
             order: 2;
-            align-self: flex-end;
         }
 
         .menu-icon img {
@@ -181,13 +179,12 @@
 
         .menu-text {
             flex: 1;
-            font-size: 18px;
+            font-size: 22px;
             font-weight: 600;
             color: white;
             text-shadow: 0 1px 2px rgba(0,0,0,0.1);
             text-align: left;
             order: 1;
-            align-self: flex-end;
         }
 
         .menu-text.welcome {
@@ -197,6 +194,29 @@
             flex: none;
             width: 100%;
             letter-spacing: 0.5px;
+            position: relative;
+            padding-bottom: 12px;
+        }
+
+        .menu-text.welcome::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 170px;
+            height: 4px;
+            background: linear-gradient(to right, 
+                #7B68A6 0%, 
+                #7B68A6 25%, 
+                #D4AF37 25%, 
+                #D4AF37 50%, 
+                #37b783 50%, 
+                #37b783 75%, 
+                #4A90E2 75%, 
+                #4A90E2 100%
+            );
+            border-radius: 2px;
         }
 
         .submenu-view {
@@ -227,7 +247,7 @@
             transition: transform 0.2s;
             text-decoration: none;
             color: white;
-            background: rgba(82, 201, 163, 0.9);
+            background: rgba(55, 183, 131, 0.9);
             border-radius: 12px;
             margin-bottom: 8px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.15);
@@ -235,7 +255,7 @@
 
         .submenu-item:hover {
             transform: translateX(4px);
-            background: rgba(82, 201, 163, 1);
+            background: rgba(55, 183, 131, 1);
         }
 
         .submenu-icon {
