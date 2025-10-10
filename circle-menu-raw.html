@@ -92,6 +92,15 @@
             pointer-events: none;
         }
 
+        .tile-welcome::before {
+            background-image: url('https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/zebra_stripe.png');
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            opacity: 0.12;
+            filter: brightness(1.5);
+        }
+
         .tile-foundations::before {
             background-image: url('https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/foundation_cubes.png');
             background-repeat: repeat;
@@ -308,7 +317,7 @@
         <div class="menu-view" id="mainMenu">
             <!-- Welcome -->
             <div class="menu-item">
-                <div class="menu-parent" onclick="showSubmenu('welcome')" style="justify-content: center;">
+                <div class="menu-parent tile-welcome" onclick="showSubmenu('welcome')" style="justify-content: center;">
                     <div class="menu-text welcome">Welcome</div>
                 </div>
             </div>
@@ -558,7 +567,7 @@
             </div>
             <a href="#intro-to-programs" class="submenu-item">
                 <div class="submenu-icon">
-                    <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/programs_design.png" alt="Introduction to Programs">
+                    <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/program_design.png" alt="Introduction to Programs">
                 </div>
                 <div class="submenu-text">Introduction to Programs</div>
             </a>
@@ -622,11 +631,11 @@
                 </div>
                 <div class="submenu-text">Calendars</div>
             </a>
-            <a href="#reformer-foundations" class="submenu-item">
+            <a href="#refermer-foundations" class="submenu-item">
                 <div class="submenu-icon">
-                    <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/reformer.png" alt="Reformer Foundations">
+                    <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/refermer.png" alt="Reformer Foundations">
                 </div>
-                <div class="submenu-text">Reformer Foundations</div>
+                <div class="submenu-text">Refermer Foundations</div>
             </a>
         </div>
     </div>
