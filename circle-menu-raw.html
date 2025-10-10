@@ -64,7 +64,7 @@
 
         .menu-parent {
             display: flex;
-            align-items: center;
+            align-items: flex-end;
             justify-content: space-between;
             padding: 20px;
             cursor: pointer;
@@ -74,7 +74,78 @@
             background: #52C9A3;
             border-radius: 12px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-            min-height: 80px;
+            min-height: 100px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .menu-parent::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-size: 60px 60px;
+            background-position: -10px -10px, 30px 30px;
+            opacity: 0.15;
+            pointer-events: none;
+        }
+
+        .tile-foundations::before {
+            background-image: url('https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/foundation_cubes.png');
+            background-repeat: repeat;
+            background-size: 80px 80px;
+            opacity: 0.12;
+            filter: brightness(1.5);
+        }
+
+        .tile-movebody::before {
+            background-image: url('https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/move_your_body.png');
+            background-repeat: repeat;
+            background-size: 70px 70px;
+            opacity: 0.1;
+            filter: brightness(1.5);
+        }
+
+        .tile-calm::before {
+            background-image: url('https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/calm_your_mind.png');
+            background-repeat: repeat;
+            background-size: 60px 60px;
+            opacity: 0.1;
+            filter: brightness(1.5);
+        }
+
+        .tile-connect::before {
+            background-image: url('https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/connect_and_share.png');
+            background-repeat: repeat;
+            background-size: 50px 50px;
+            opacity: 0.1;
+            filter: brightness(1.5);
+        }
+
+        .tile-programs::before {
+            background-image: url('https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/your_programs.png');
+            background-repeat: repeat;
+            background-size: 70px 70px;
+            opacity: 0.1;
+            filter: brightness(1.5);
+        }
+
+        .tile-events::before {
+            background-image: url('https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/events.png');
+            background-repeat: repeat;
+            background-size: 65px 65px;
+            opacity: 0.1;
+            filter: brightness(1.5);
+        }
+
+        .tile-learn::before {
+            background-image: url('https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/learn_and_grow.png');
+            background-repeat: repeat;
+            background-size: 60px 60px;
+            opacity: 0.1;
+            filter: brightness(1.5);
         }
 
         .menu-parent:hover {
@@ -98,6 +169,7 @@
             justify-content: center;
             padding: 10px;
             order: 2;
+            align-self: flex-end;
         }
 
         .menu-icon img {
@@ -115,6 +187,7 @@
             text-shadow: 0 1px 2px rgba(0,0,0,0.1);
             text-align: left;
             order: 1;
+            align-self: flex-end;
         }
 
         .menu-text.welcome {
@@ -222,71 +295,71 @@
 
             <!-- Foundations -->
             <div class="menu-item">
-                <div class="menu-parent" onclick="showSubmenu('foundations')">
+                <div class="menu-parent tile-foundations" onclick="showSubmenu('foundations')">
+                    <div class="menu-text">Foundations</div>
                     <div class="menu-icon">
                         <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/foundation_cubes.png" alt="Foundations">
                     </div>
-                    <div class="menu-text">Foundations</div>
                 </div>
             </div>
 
             <!-- Move Your Body -->
             <div class="menu-item">
-                <div class="menu-parent" onclick="showSubmenu('movebody')">
+                <div class="menu-parent tile-movebody" onclick="showSubmenu('movebody')">
+                    <div class="menu-text">Move Your Body</div>
                     <div class="menu-icon">
                         <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/move_your_body.png" alt="Move Your Body">
                     </div>
-                    <div class="menu-text">Move Your Body</div>
                 </div>
             </div>
 
             <!-- Calm Your Mind -->
             <div class="menu-item">
-                <div class="menu-parent" onclick="showSubmenu('calm')">
+                <div class="menu-parent tile-calm" onclick="showSubmenu('calm')">
+                    <div class="menu-text">Calm Your Mind</div>
                     <div class="menu-icon">
                         <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/calm_your_mind.png" alt="Calm Your Mind">
                     </div>
-                    <div class="menu-text">Calm Your Mind</div>
                 </div>
             </div>
 
             <!-- Connect -->
             <div class="menu-item">
-                <div class="menu-parent" onclick="showSubmenu('connect')">
+                <div class="menu-parent tile-connect" onclick="showSubmenu('connect')">
+                    <div class="menu-text">Connect</div>
                     <div class="menu-icon">
                         <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/connect_and_share.png" alt="Connect">
                     </div>
-                    <div class="menu-text">Connect</div>
                 </div>
             </div>
 
             <!-- Programs -->
             <div class="menu-item">
-                <div class="menu-parent" onclick="showSubmenu('programs')">
+                <div class="menu-parent tile-programs" onclick="showSubmenu('programs')">
+                    <div class="menu-text">Programs</div>
                     <div class="menu-icon">
                         <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/your_programs.png" alt="Programs">
                     </div>
-                    <div class="menu-text">Programs</div>
                 </div>
             </div>
 
             <!-- Events -->
             <div class="menu-item">
-                <a href="#events" class="menu-parent">
+                <a href="#events" class="menu-parent tile-events">
+                    <div class="menu-text">Events</div>
                     <div class="menu-icon">
                         <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/events.png" alt="Events">
                     </div>
-                    <div class="menu-text">Events</div>
                 </a>
             </div>
 
             <!-- Learn & Grow -->
             <div class="menu-item">
-                <a href="#learn-and-grow" class="menu-parent">
+                <a href="#learn-and-grow" class="menu-parent tile-learn">
+                    <div class="menu-text">Learn & Grow</div>
                     <div class="menu-icon">
                         <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/learn_and_grow.png" alt="Learn & Grow">
                     </div>
-                    <div class="menu-text">Learn & Grow</div>
                 </a>
             </div>
         </div>
@@ -529,11 +602,11 @@
                 </div>
                 <div class="submenu-text">Calendars</div>
             </a>
-            <a href="#refermer-foundations" class="submenu-item">
+            <a href="#reformer-foundations" class="submenu-item">
                 <div class="submenu-icon">
-                    <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/refermer.png" alt="Reformer Foundations">
+                    <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/reformer.png" alt="Reformer Foundations">
                 </div>
-                <div class="submenu-text">Refermer Foundations</div>
+                <div class="submenu-text">Reformer Foundations</div>
             </a>
         </div>
     </div>
@@ -542,49 +615,29 @@
         let currentView = 'main';
 
         function showSubmenu(id) {
-            // Hide main menu with fade
-            const mainMenu = document.getElementById('mainMenu');
-            mainMenu.style.opacity = '0';
-            mainMenu.style.transform = 'translateY(-10px)';
+            // Hide main menu
+            document.getElementById('mainMenu').classList.add('hidden');
             
-            setTimeout(() => {
-                mainMenu.classList.add('hidden');
-                
-                // Show submenu with fade
-                const submenu = document.getElementById('submenu-' + id);
-                submenu.classList.add('active');
-                
-                // Force reflow for animation
-                submenu.offsetHeight;
-                
-                // Show back button
-                document.getElementById('backButton').classList.add('active');
-            }, 200);
+            // Show submenu
+            document.getElementById('submenu-' + id).classList.add('active');
+            
+            // Show back button
+            document.getElementById('backButton').classList.add('active');
             
             currentView = id;
         }
 
         function goBack() {
-            // Hide all submenus with fade
+            // Hide all submenus
             document.querySelectorAll('.submenu-view').forEach(menu => {
-                menu.style.opacity = '0';
-                menu.style.transform = 'translateY(10px)';
+                menu.classList.remove('active');
             });
             
-            setTimeout(() => {
-                document.querySelectorAll('.submenu-view').forEach(menu => {
-                    menu.classList.remove('active');
-                });
-                
-                // Show main menu with fade
-                const mainMenu = document.getElementById('mainMenu');
-                mainMenu.classList.remove('hidden');
-                mainMenu.style.opacity = '1';
-                mainMenu.style.transform = 'translateY(0)';
-                
-                // Hide back button
-                document.getElementById('backButton').classList.remove('active');
-            }, 200);
+            // Show main menu
+            document.getElementById('mainMenu').classList.remove('hidden');
+            
+            // Hide back button
+            document.getElementById('backButton').classList.remove('active');
             
             currentView = 'main';
         }
