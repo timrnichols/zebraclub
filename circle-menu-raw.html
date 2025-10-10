@@ -93,10 +93,9 @@
         }
 
         .tile-welcome::before {
-            background-image: url('https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/zebra_stripe.png');
-            background-repeat: no-repeat;
-            background-size: cover;
-            background-position: center;
+            background-image: url('https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/welcome.png');
+            background-repeat: repeat;
+            background-size: 80px 80px;
             opacity: 0.12;
             filter: brightness(1.5);
         }
@@ -197,35 +196,13 @@
         }
 
         .menu-text.welcome {
-            text-align: center;
-            font-size: 28px;
-            font-weight: 800;
-            flex: none;
-            width: 100%;
-            letter-spacing: 0.5px;
-            position: relative;
-            padding-bottom: 12px;
-        }
-
-        .menu-text.welcome::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 170px;
-            height: 4px;
-            background: linear-gradient(to right, 
-                #7B68A6 0%, 
-                #7B68A6 25%, 
-                #D4AF37 25%, 
-                #D4AF37 50%, 
-                #37b783 50%, 
-                #37b783 75%, 
-                #4A90E2 75%, 
-                #4A90E2 100%
-            );
-            border-radius: 2px;
+            text-align: left;
+            font-size: 22px;
+            font-weight: 600;
+            flex: 1;
+            width: auto;
+            letter-spacing: 0px;
+            padding-bottom: 0;
         }
 
         .submenu-view {
@@ -317,8 +294,11 @@
         <div class="menu-view" id="mainMenu">
             <!-- Welcome -->
             <div class="menu-item">
-                <div class="menu-parent tile-welcome" onclick="showSubmenu('welcome')" style="justify-content: center;">
+                <div class="menu-parent tile-welcome" onclick="showSubmenu('welcome')">
                     <div class="menu-text welcome">Welcome</div>
+                    <div class="menu-icon">
+                        <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/welcome.png" alt="Welcome">
+                    </div>
                 </div>
             </div>
 
@@ -633,7 +613,7 @@
             </a>
             <a href="#refermer-foundations" class="submenu-item">
                 <div class="submenu-icon">
-                    <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/refermer.png" alt="Reformer Foundations">
+                    <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/refermer.png" alt="Refermer Foundations">
                 </div>
                 <div class="submenu-text">Refermer Foundations</div>
             </a>
