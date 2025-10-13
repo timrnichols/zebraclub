@@ -354,22 +354,22 @@
 
             <!-- Events -->
             <div class="menu-item">
-                <a href="#events" class="menu-parent tile-events">
+                <div class="menu-parent tile-events" onclick="showSubmenu('events')">
                     <div class="menu-text">Events</div>
                     <div class="menu-icon">
                         <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/events.png" alt="Events">
                     </div>
-                </a>
+                </div>
             </div>
 
             <!-- Learn & Grow -->
             <div class="menu-item">
-                <a href="#learn-and-grow" class="menu-parent tile-learn">
+                <div class="menu-parent tile-learn" onclick="showSubmenu('learn')">
                     <div class="menu-text">Learn & Grow</div>
                     <div class="menu-icon">
                         <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/learn_and_grow.png" alt="Learn & Grow">
                     </div>
-                </a>
+                </div>
             </div>
         </div>
 
@@ -652,6 +652,56 @@
                     <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/refermer.png" alt="Refermer Foundations">
                 </div>
                 <div class="submenu-text">Refermer Foundations</div>
+            </a>
+        </div>
+
+        <!-- Events Submenu -->
+        <div class="submenu-view" id="submenu-events">
+            <div class="submenu-header">
+                <div class="submenu-title">Events</div>
+            </div>
+            <a href="#live-events" class="submenu-item">
+                <div class="submenu-icon">
+                    <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/events.png" alt="Live Events">
+                </div>
+                <div class="submenu-text">Live Events</div>
+            </a>
+        </div>
+
+        <!-- Learn & Grow Submenu -->
+        <div class="submenu-view" id="submenu-learn">
+            <div class="submenu-header">
+                <div class="submenu-title">Learn & Grow</div>
+            </div>
+            <a href="#expert-insights" class="submenu-item">
+                <div class="submenu-icon">
+                    <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/expert.png" alt="Expert Insights">
+                </div>
+                <div class="submenu-text">Expert Insights</div>
+            </a>
+            <a href="#jeannies-live-workshops" class="submenu-item">
+                <div class="submenu-icon">
+                    <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/live_workshop.png" alt="Jeannie's Live Workshops">
+                </div>
+                <div class="submenu-text">Jeannie's Live Workshops</div>
+            </a>
+            <a href="#education-snippets" class="submenu-item">
+                <div class="submenu-icon">
+                    <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/education_snippets.png" alt="Education Snippets">
+                </div>
+                <div class="submenu-text">Education Snippets</div>
+            </a>
+            <a href="#resource-hub" class="submenu-item">
+                <div class="submenu-icon">
+                    <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/resourses.png" alt="Resource Hub">
+                </div>
+                <div class="submenu-text">Resource Hub</div>
+            </a>
+            <a href="#jeannies-podcast" class="submenu-item">
+                <div class="submenu-icon">
+                    <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/tzc_podcast.png" alt="Jeannie's Podcast">
+                </div>
+                <div class="submenu-text">Jeannie's Podcast</div>
             </a>
         </div>
     </div>
