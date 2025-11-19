@@ -3,13 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <base href="https://www.thezebra.app/">
+    <base href="https://www.thezebra.app/">
     <title>Zebra Club Custom Menu</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+        }
+
+        /* NEW: ensure host background doesn't show through on mobile */
+        html {
+            background: #2d3436;
         }
 
         body {
@@ -28,6 +33,13 @@
             padding: 10px;
             min-height: 100vh;
             overflow-y: auto;
+        }
+
+        /* NEW: better viewport handling on modern mobile browsers (incl. Android) */
+        @supports (height: 100dvh) {
+            .menu-container {
+                min-height: 100dvh;
+            }
         }
 
         .back-button {
@@ -253,6 +265,7 @@
             border-radius: 12px;
             margin-bottom: 8px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            -webkit-tap-highlight-color: transparent; /* small mobile UX nicety */
         }
 
         .submenu-item:hover {
@@ -296,7 +309,6 @@
             color: #52C9A3;
         }
     </style>
-   
 </head>
 <body>
 
@@ -396,12 +408,12 @@
             <div class="submenu-header">
                 <div class="submenu-title">Welcome</div>
             </div>
-         <div onclick="window.navigateToUrl('https://www.thezebra.app/c/start-here/')" class="submenu-item" style="cursor: pointer;">
-    <div class="submenu-icon">
-        <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/start_here.png" alt="Start Here">
-    </div>
-    <div class="submenu-text">Start Here</div>
-</div>
+            <div onclick="window.navigateToUrl('https://www.thezebra.app/c/start-here/')" class="submenu-item" style="cursor: pointer;">
+                <div class="submenu-icon">
+                    <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/start_here.png" alt="Start Here">
+                </div>
+                <div class="submenu-text">Start Here</div>
+            </div>
 
             <div onclick="window.navigateToUrl('https://www.thezebra.app/c/welcome-checklist/')" class="submenu-item" style="cursor: pointer;">
                 <div class="submenu-icon">
@@ -728,24 +740,41 @@
     <script>
         let currentView = 'main';
 
+        // Make sure scroll is really reset, even after layout changes (Android fix)
+        function resetMenuScroll() {
+            const container = document.querySelector('.menu-container');
+            if (!container) return;
+
+            // immediate reset
+            container.scrollTop = 0;
+            window.scrollTo(0, 0);
+
+            // run again on the next frame so it applies *after* the view switch
+            requestAnimationFrame(() => {
+                container.scrollTop = 0;
+                window.scrollTo(0, 0);
+            });
+        }
+
+
         function showSubmenu(id) {
             // Hide main menu
             document.getElementById('mainMenu').classList.add('hidden');
-            
+
             // Hide all other submenus first
             document.querySelectorAll('.submenu-view').forEach(menu => {
                 menu.classList.remove('active');
             });
-            
+
             // Show submenu
             document.getElementById('submenu-' + id).classList.add('active');
-            
+
             // Show back button
             document.getElementById('backButton').classList.add('active');
-            
-            // Scroll to top
-            window.scrollTo(0, 0);
-            
+
+            // Scroll to top of container (fix for Android white space)
+            resetMenuScroll();
+
             currentView = id;
         }
 
@@ -754,16 +783,16 @@
             document.querySelectorAll('.submenu-view').forEach(menu => {
                 menu.classList.remove('active');
             });
-            
+
             // Show main menu
             document.getElementById('mainMenu').classList.remove('hidden');
-            
+
             // Hide back button
             document.getElementById('backButton').classList.remove('active');
-            
-            // Scroll to top
-            window.scrollTo(0, 0);
-            
+
+            // Scroll to top of container (fix for Android white space)
+            resetMenuScroll();
+
             currentView = 'main';
         }
     </script>
