@@ -31,16 +31,21 @@
             background: #2d3436;
             border-radius: 20px;
             padding: 10px;
-            min-height: 100vh;
-            overflow-y: auto;
+            /* let the page (window) handle scrolling */
+            min-height: 0;
+            overflow-y: visible;
         }
 
-        /* NEW: better viewport handling on modern mobile browsers (incl. Android) */
+/* no special 100dvh handling needed on the inner container */
+
+
+        /* NEW: better viewport handling on modern mobile browsers (incl. Android) 
         @supports (height: 100dvh) {
             .menu-container {
                 min-height: 100dvh;
             }
         }
+            */
 
         .back-button {
             display: none;
@@ -382,9 +387,9 @@
                 </div>
             </div>
 
-            <!-- Events -->
+             <!-- Events (now links directly, no submenu) -->
             <div class="menu-item">
-                <div class="menu-parent tile-events" onclick="showSubmenu('events')">
+                <div class="menu-parent tile-events" onclick="window.navigateToUrl('https://www.thezebra.app/c/live-events/')">
                     <div class="menu-text">Events</div>
                     <div class="menu-icon">
                         <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/events.png" alt="Events">
@@ -680,13 +685,13 @@
             </div>
             <div onclick="window.navigateToUrl('https://www.thezebra.app/c/reformer-foundations/')" class="submenu-item" style="cursor: pointer;">
                 <div class="submenu-icon">
-                    <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/refermer.png" alt="Refermer Foundations">
+                    <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/refermer.png" alt="Reformer Foundations">
                 </div>
-                <div class="submenu-text">Refermer Foundations</div>
+                <div class="submenu-text">Reformer Foundations</div>
             </div>
         </div>
 
-        <!-- Events Submenu -->
+        /*
         <div class="submenu-view" id="submenu-events">
             <div class="submenu-header">
                 <div class="submenu-title">Events</div>
@@ -697,7 +702,7 @@
                 </div>
                 <div class="submenu-text">Live Events</div>
             </div>
-        </div>
+        </div>*/
 
         <!-- Learn & Grow Submenu -->
         <div class="submenu-view" id="submenu-learn">
@@ -740,22 +745,814 @@
     <script>
         let currentView = 'main';
 
-        // Make sure scroll is really reset, even after layout changes (Android fix)
+        // Scroll the main page back to top (works better with Circle / Android)
         function resetMenuScroll() {
-            const container = document.querySelector('.menu-container');
-            if (!container) return;
-
-            // immediate reset
-            container.scrollTop = 0;
             window.scrollTo(0, 0);
 
-            // run again on the next frame so it applies *after* the view switch
+            // run again on the next frame to catch any layout changes
             requestAnimationFrame(() => {
-                container.scrollTop = 0;
                 window.scrollTo(0, 0);
             });
         }
 
+        function showSubmenu(id) {
+            // Hide main menu
+            document.getElementById('mainMenu').classList.add('hidden');
+
+            // Hide all other submenus first
+            document.querySelectorAll('.submenu-view').forEach(menu => {
+                menu.classList.remove('active');
+            });
+
+            // Show submenu
+            document.getElementById('submenu-' + id).classList.add('active');
+
+            // Show back button
+            document.getElementById('backButton').classList.add('active');
+
+            // Scroll to top of container (fix for Android white space)
+            resetMenuScroll();
+
+            currentView = id;
+        }
+
+        function goBack() {
+            // Hide all submenus
+            document.querySelectorAll('.submenu-view').forEach(menu => {
+                menu.classList.remove('active');
+            });
+
+            // Show main menu
+            document.getElementById('mainMenu').classList.remove('hidden');
+
+            // Hide back button
+            document.getElementById('backButton').classList.remove('active');
+
+            // Scroll to top of container (fix for Android white space)
+            resetMenuScroll();
+
+            currentView = 'main';
+        }
+    </script>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="https://www.thezebra.app/">
+    <title>Zebra Club Custom Menu</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* NEW: ensure host background doesn't show through on mobile */
+        html {
+            background: #2d3436;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #2d3436;
+            padding: 20px;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .menu-container {
+            max-width: 400px;
+            margin: 0 auto;
+            background: #2d3436;
+            border-radius: 20px;
+            padding: 10px;
+            /* let the page (window) handle scrolling */
+            min-height: 0;
+            overflow-y: visible;
+        }
+
+/* no special 100dvh handling needed on the inner container */
+
+
+        /* NEW: better viewport handling on modern mobile browsers (incl. Android) 
+        @supports (height: 100dvh) {
+            .menu-container {
+                min-height: 100dvh;
+            }
+        }
+            */
+
+        .back-button {
+            display: none;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 16px;
+            margin-bottom: 10px;
+            background: rgba(55, 183, 131, 0.2);
+            border: none;
+            border-radius: 12px;
+            color: #37b783;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .back-button.active {
+            display: flex;
+        }
+
+        .back-button:hover {
+            background: rgba(55, 183, 131, 0.3);
+        }
+
+        .menu-view {
+            display: block;
+            width: 100%;
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+
+        .menu-view.hidden {
+            display: none;
+            visibility: hidden;
+            height: 0;
+            overflow: hidden;
+        }
+
+        .menu-item {
+            margin-bottom: 10px;
+        }
+
+        .menu-parent {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-decoration: none;
+            color: white;
+            background: #37b783;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            min-height: 100px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .menu-parent::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-size: 60px 60px;
+            background-position: -10px -10px, 30px 30px;
+            opacity: 0.15;
+            pointer-events: none;
+        }
+
+        .tile-welcome::before {
+            background-image: url('https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/welcome.png');
+            background-repeat: repeat;
+            background-size: 80px 80px;
+            opacity: 0.12;
+            filter: brightness(1.5);
+        }
+
+        .tile-foundations::before {
+            background-image: url('https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/foundation_cubes.png');
+            background-repeat: repeat;
+            background-size: 80px 80px;
+            opacity: 0.12;
+            filter: brightness(1.5);
+        }
+
+        .tile-movebody::before {
+            background-image: url('https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/move_your_body.png');
+            background-repeat: repeat;
+            background-size: 70px 70px;
+            opacity: 0.1;
+            filter: brightness(1.5);
+        }
+
+        .tile-calm::before {
+            background-image: url('https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/calm_your_mind.png');
+            background-repeat: repeat;
+            background-size: 60px 60px;
+            opacity: 0.1;
+            filter: brightness(1.5);
+        }
+
+        .tile-connect::before {
+            background-image: url('https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/connect_and_share.png');
+            background-repeat: repeat;
+            background-size: 50px 50px;
+            opacity: 0.1;
+            filter: brightness(1.5);
+        }
+
+        .tile-programs::before {
+            background-image: url('https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/programs.png');
+            background-repeat: repeat;
+            background-size: 70px 70px;
+            opacity: 0.1;
+            filter: brightness(1.5);
+        }
+
+        .tile-events::before {
+            background-image: url('https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/events.png');
+            background-repeat: repeat;
+            background-size: 65px 65px;
+            opacity: 0.1;
+            filter: brightness(1.5);
+        }
+
+        .tile-learn::before {
+            background-image: url('https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/learn_and_grow.png');
+            background-repeat: repeat;
+            background-size: 60px 60px;
+            opacity: 0.1;
+            filter: brightness(1.5);
+        }
+
+        .menu-parent:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+        }
+
+        .menu-parent:active {
+            transform: translateY(0);
+        }
+
+        .menu-icon {
+            width: 80px;
+            height: 80px;
+            margin-left: 0;
+            margin-right: 10px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px;
+            order: 2;
+        }
+
+        .menu-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: brightness(0) invert(1);
+        }
+
+        .menu-text {
+            flex: 1;
+            font-size: 22px;
+            font-weight: 600;
+            color: white;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+            text-align: left;
+            order: 1;
+        }
+
+        .menu-text.welcome {
+            text-align: left;
+            font-size: 24px;
+            font-weight: 600;
+            flex: 1;
+            width: auto;
+            letter-spacing: 0px;
+            padding-bottom: 0;
+        }
+
+        .submenu-view {
+            display: none;
+            width: 100%;
+            visibility: hidden;
+            height: 0;
+            overflow: hidden;
+        }
+
+        .submenu-view.active {
+            display: block;
+            visibility: visible;
+            height: auto;
+            overflow: visible;
+            animation: fadeIn 0.4s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .submenu-item {
+            display: flex;
+            align-items: center;
+            padding: 18px 20px;
+            cursor: pointer;
+            transition: transform 0.2s;
+            text-decoration: none;
+            color: white;
+            background: rgba(55, 183, 131, 0.9);
+            border-radius: 12px;
+            margin-bottom: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            -webkit-tap-highlight-color: transparent; /* small mobile UX nicety */
+        }
+
+        .submenu-item:hover {
+            transform: translateX(4px);
+            background: rgba(55, 183, 131, 1);
+        }
+
+        .submenu-icon {
+            width: 32px;
+            height: 32px;
+            margin-right: 14px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .submenu-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: brightness(0) invert(1);
+        }
+
+        .submenu-text {
+            font-size: 16px;
+            font-weight: 500;
+            color: white;
+        }
+
+        .submenu-header {
+            padding: 16px 20px;
+            margin-bottom: 12px;
+            background: rgba(82, 201, 163, 0.3);
+            border-radius: 12px;
+        }
+
+        .submenu-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #52C9A3;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="menu-container">
+        <button class="back-button" id="backButton" onclick="goBack()">
+            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+            </svg>
+            Back
+        </button>
+
+        <!-- Main Menu -->
+        <div class="menu-view" id="mainMenu">
+            <!-- Welcome -->
+            <div class="menu-item">
+                <div class="menu-parent tile-welcome" onclick="showSubmenu('welcome')">
+                    <div class="menu-text welcome">Welcome</div>
+                    <div class="menu-icon">
+                        <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/welcome.png" alt="Welcome">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Foundations -->
+            <div class="menu-item">
+                <div class="menu-parent tile-foundations" onclick="showSubmenu('foundations')">
+                    <div class="menu-text">Foundations</div>
+                    <div class="menu-icon">
+                        <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/foundation_cubes.png" alt="Foundations">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Move Your Body -->
+            <div class="menu-item">
+                <div class="menu-parent tile-movebody" onclick="showSubmenu('movebody')">
+                    <div class="menu-text">Move Your Body</div>
+                    <div class="menu-icon">
+                        <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/move_your_body.png" alt="Move Your Body">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Calm Your Mind -->
+            <div class="menu-item">
+                <div class="menu-parent tile-calm" onclick="showSubmenu('calm')">
+                    <div class="menu-text">Calm Your Mind</div>
+                    <div class="menu-icon">
+                        <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/calm_your_mind.png" alt="Calm Your Mind">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Your Programs -->
+            <div class="menu-item">
+                <div class="menu-parent tile-programs" onclick="showSubmenu('programs')">
+                    <div class="menu-text">Your Programs</div>
+                    <div class="menu-icon">
+                        <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/programs.png" alt="Programs">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Connect & Share -->
+            <div class="menu-item">
+                <div class="menu-parent tile-connect" onclick="showSubmenu('connect')">
+                    <div class="menu-text">Connect & Share</div>
+                    <div class="menu-icon">
+                        <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/connect_and_share.png" alt="Connect">
+                    </div>
+                </div>
+            </div>
+
+             <!-- Events (now links directly, no submenu) -->
+            <div class="menu-item">
+                <div class="menu-parent tile-events" onclick="window.navigateToUrl('https://www.thezebra.app/c/live-events/')">
+                    <div class="menu-text">Events</div>
+                    <div class="menu-icon">
+                        <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/events.png" alt="Events">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Learn & Grow -->
+            <div class="menu-item">
+                <div class="menu-parent tile-learn" onclick="showSubmenu('learn')">
+                    <div class="menu-text">Learn & Grow</div>
+                    <div class="menu-icon">
+                        <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/learn_and_grow.png" alt="Learn & Grow">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Welcome Submenu -->
+        <div class="submenu-view" id="submenu-welcome">
+            <div class="submenu-header">
+                <div class="submenu-title">Welcome</div>
+            </div>
+            <div onclick="window.navigateToUrl('https://www.thezebra.app/c/start-here/')" class="submenu-item" style="cursor: pointer;">
+                <div class="submenu-icon">
+                    <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/start_here.png" alt="Start Here">
+                </div>
+                <div class="submenu-text">Start Here</div>
+            </div>
+
+            <div onclick="window.navigateToUrl('https://www.thezebra.app/c/welcome-checklist/')" class="submenu-item" style="cursor: pointer;">
+                <div class="submenu-icon">
+                    <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/welcome.png" alt="Welcome Checklist">
+                </div>
+                <div class="submenu-text">Welcome Checklist</div>
+            </div>
+            <div onclick="window.navigateToUrl('https://www.thezebra.app/c/say-hello/')" class="submenu-item" style="cursor: pointer;">
+                <div class="submenu-icon">
+                    <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/say_hello.png" alt="Say Hello">
+                </div>
+                <div class="submenu-text">Say Hello</div>
+            </div>
+        </div>
+
+        <!-- Foundations Submenu -->
+        <div class="submenu-view" id="submenu-foundations">
+            <div class="submenu-header">
+                <div class="submenu-title">Foundations</div>
+            </div>
+            <div onclick="window.navigateToUrl('https://www.thezebra.app/c/level-1')" class="submenu-item" style="cursor: pointer;">
+                <div class="submenu-icon">
+                    <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/level_1.png" alt="Level 1">
+                </div>
+                <div class="submenu-text">Level 1</div>
+            </div>
+            <div onclick="window.navigateToUrl('http://www.thezebra.app/c/gentle-start/')" class="submenu-item" style="cursor: pointer;">
+                <div class="submenu-icon">
+                    <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/level_2.png" alt="Level 2">
+                </div>
+                <div class="submenu-text">Level 2</div>
+            </div>
+            <div onclick="window.navigateToUrl('https://www.thezebra.app/c/explore-more/')" class="submenu-item" style="cursor: pointer;">
+                <div class="submenu-icon">
+                    <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/level_3.png" alt="Level 3">
+                </div>
+                <div class="submenu-text">Level 3</div>
+            </div>
+        </div>
+
+        <!-- Move Your Body Submenu -->
+        <div class="submenu-view" id="submenu-movebody">
+            <div class="submenu-header">
+                <div class="submenu-title">Move Your Body</div>
+            </div>
+            <div onclick="window.navigateToUrl('https://www.thezebra.app/c/mindful-stress/')" class="submenu-item" style="cursor: pointer;">
+                <div class="submenu-icon">
+                    <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/mindful_stress.png" alt="Mindful & Stress">
+                </div>
+                <div class="submenu-text">Mindful & Stress</div>
+            </div>
+            <div onclick="window.navigateToUrl('https://www.thezebra.app/c/sleep-and-fatigue/')" class="submenu-item" style="cursor: pointer;">
+                <div class="submenu-icon">
+                    <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/sleep_and_fatigue.png" alt="Sleep & Fatigue">
+                </div>
+                <div class="submenu-text">Sleep & Fatigue</div>
+            </div>
+            <div onclick="window.navigateToUrl('https://www.thezebra.app/c/pain-management/')" class="submenu-item" style="cursor: pointer;">
+                <div class="submenu-icon">
+                    <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/pain_management.png" alt="Pain Management">
+                </div>
+                <div class="submenu-text">Pain Management</div>
+            </div>
+            <div onclick="window.navigateToUrl('https://www.thezebra.app/c/stability/')" class="submenu-item" style="cursor: pointer;">
+                <div class="submenu-icon">
+                    <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/stability.png" alt="Stability">
+                </div>
+                <div class="submenu-text">Stability</div>
+            </div>
+            <div onclick="window.navigateToUrl('https://www.thezebra.app/c/strength-connect/')" class="submenu-item" style="cursor: pointer;">
+                <div class="submenu-icon">
+                    <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/strength.png" alt="Strength & Connect">
+                </div>
+                <div class="submenu-text">Strength & Connect</div>
+            </div>
+            <div onclick="window.navigateToUrl('https://www.thezebra.app/c/cardio/')" class="submenu-item" style="cursor: pointer;">
+                <div class="submenu-icon">
+                    <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/cardio.png" alt="Cardio">
+                </div>
+                <div class="submenu-text">Cardio</div>
+            </div>
+            <div onclick="window.navigateToUrl('https://www.thezebra.app/c/challenge/')" class="submenu-item" style="cursor: pointer;">
+                <div class="submenu-icon">
+                    <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/challenge.png" alt="Challenge">
+                </div>
+                <div class="submenu-text">Challenge</div>
+            </div>
+        </div>
+
+        <!-- Calm Your Mind Submenu -->
+        <div class="submenu-view" id="submenu-calm">
+            <div class="submenu-header">
+                <div class="submenu-title">Calm Your Mind</div>
+            </div>
+            <div onclick="window.navigateToUrl('https://www.thezebra.app/c/dynamic-meditations/')" class="submenu-item" style="cursor: pointer;">
+                <div class="submenu-icon">
+                    <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/dynamic_meditations.png" alt="Dynamic Meditations">
+                </div>
+                <div class="submenu-text">Dynamic Meditations</div>
+            </div>
+            <div onclick="window.navigateToUrl('https://www.thezebra.app/c/targeted-release/')" class="submenu-item" style="cursor: pointer;">
+                <div class="submenu-icon">
+                    <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/targeted_release.png" alt="Targeted Release">
+                </div>
+                <div class="submenu-text">Targeted Release</div>
+            </div>
+            <div onclick="window.navigateToUrl('https://www.thezebra.app/c/full-body-release/')" class="submenu-item" style="cursor: pointer;">
+                <div class="submenu-icon">
+                    <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/full_body_release_new.png" alt="Full Body Release">
+                </div>
+                <div class="submenu-text">Full Body Release</div>
+            </div>
+            <div onclick="window.navigateToUrl('https://www.thezebra.app/c/heart-soul/')" class="submenu-item" style="cursor: pointer;">
+                <div class="submenu-icon">
+                    <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/heart_soul.png" alt="Heart & Soul">
+                </div>
+                <div class="submenu-text">Heart & Soul</div>
+            </div>
+            <div onclick="window.navigateToUrl('https://www.thezebra.app/c/unwind-into-sleep/')" class="submenu-item" style="cursor: pointer;">
+                <div class="submenu-icon">
+                    <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/unwind_into_sleep.png" alt="Unwind into Sleep">
+                </div>
+                <div class="submenu-text">Unwind into Sleep</div>
+            </div>
+        </div>
+
+        <!-- Connect Submenu -->
+        <div class="submenu-view" id="submenu-connect">
+            <div class="submenu-header">
+                <div class="submenu-title">Connect & Share</div>
+            </div>
+            <div onclick="window.navigateToUrl('https://www.thezebra.app/c/the-zebra-club/')" class="submenu-item" style="cursor: pointer;">
+                <div class="submenu-icon">
+                    <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/the_zebra_club.png" alt="The Zebra Club">
+                </div>
+                <div class="submenu-text">The Zebra Club</div>
+            </div>
+            <div onclick="window.navigateToUrl('https://www.thezebra.app/c/wall-of-love/')" class="submenu-item" style="cursor: pointer;">
+                <div class="submenu-icon">
+                    <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/wall_of_love.png" alt="Wall of Love">
+                </div>
+                <div class="submenu-text">Wall of Love</div>
+            </div>
+            <div onclick="window.navigateToUrl('https://www.thezebra.app/c/equipment-aids/')" class="submenu-item" style="cursor: pointer;">
+                <div class="submenu-icon">
+                    <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/equipment_aids.png" alt="Equipment & Aids">
+                </div>
+                <div class="submenu-text">Equipment & Aids</div>
+            </div>
+            <div onclick="window.navigateToUrl('https://www.thezebra.app/c/accountability/')" class="submenu-item" style="cursor: pointer;">
+                <div class="submenu-icon">
+                    <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/accountability.png" alt="Accountability">
+                </div>
+                <div class="submenu-text">Accountability</div>
+            </div>
+            <div onclick="window.navigateToUrl('https://www.thezebra.app/c/navigating-the-menopause/')" class="submenu-item" style="cursor: pointer;">
+                <div class="submenu-icon">
+                    <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/navigating_menopause.png" alt="Navigating the Menopause">
+                </div>
+                <div class="submenu-text">Navigating the Menopause</div>
+            </div>
+            <div onclick="window.navigateToUrl('https://www.thezebra.app/c/men-s-chat/')" class="submenu-item" style="cursor: pointer;">
+                <div class="submenu-icon">
+                    <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/mens_chat.png" alt="Men's Chat">
+                </div>
+                <div class="submenu-text">Men's Chat</div>
+            </div>
+            <div onclick="window.navigateToUrl('https://www.thezebra.app/c/parenting-prenatal-up/')" class="submenu-item" style="cursor: pointer;">
+                <div class="submenu-icon">
+                    <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/parenting.png" alt="Parenting - Prenatal & Up">
+                </div>
+                <div class="submenu-text">Parenting - Prenatal & Up</div>
+            </div>
+            <div onclick="window.navigateToUrl('https://www.thezebra.app/c/embracing-neurodiversity/')" class="submenu-item" style="cursor: pointer;">
+                <div class="submenu-icon">
+                    <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/embracing_neurodiversity.png" alt="Embracing Neurodiversity">
+                </div>
+                <div class="submenu-text">Embracing Neurodiversity</div>
+            </div>
+            <div onclick="window.navigateToUrl('https://www.thezebra.app/c/supporting-me-cfs/')" class="submenu-item" style="cursor: pointer;">
+                <div class="submenu-icon">
+                    <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/me_cfs.png" alt="Supporting ME/CFS">
+                </div>
+                <div class="submenu-text">Supporting ME/CFS</div>
+            </div>
+            <div onclick="window.navigateToUrl('https://www.thezebra.app/c/zebra-zoomies/')" class="submenu-item" style="cursor: pointer;">
+                <div class="submenu-icon">
+                    <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/zoomies.png" alt="Zebra Zoomies">
+                </div>
+                <div class="submenu-text">Zebra Zoomies</div>
+            </div>
+        </div>
+
+        <!-- Programs Submenu -->
+        <div class="submenu-view" id="submenu-programs">
+            <div class="submenu-header">
+                <div class="submenu-title">Your Programs</div>
+            </div>
+            <div onclick="window.navigateToUrl('https://www.thezebra.app/c/introduction-to-programs/')" class="submenu-item" style="cursor: pointer;">
+                <div class="submenu-icon">
+                    <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/program_design.png" alt="Introduction to Programs">
+                </div>
+                <div class="submenu-text">Introduction to Programs</div>
+            </div>
+            <div onclick="window.navigateToUrl('https://www.thezebra.app/c/getting-started-guide/')" class="submenu-item" style="cursor: pointer;">
+                <div class="submenu-icon">
+                    <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/getting_started.png" alt="Getting Started">
+                </div>
+                <div class="submenu-text">Getting Started</div>
+            </div>
+            <div onclick="window.navigateToUrl('https://www.thezebra.app/c/every-day-mobility/')" class="submenu-item" style="cursor: pointer;">
+                <div class="submenu-icon">
+                    <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/everyday_mobility.png" alt="Every Day Mobility">
+                </div>
+                <div class="submenu-text">Every Day Mobility</div>
+            </div>
+            <div onclick="window.navigateToUrl('https://www.thezebra.app/c/bone-strength-and-mobility/')" class="submenu-item" style="cursor: pointer;">
+                <div class="submenu-icon">
+                    <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/bone_strength_stability.png" alt="Bone Strength and Mobility">
+                </div>
+                <div class="submenu-text">Bone Strength and Mobility</div>
+            </div>
+            <div onclick="window.navigateToUrl('https://www.thezebra.app/c/rest-restore/')" class="submenu-item" style="cursor: pointer;">
+                <div class="submenu-icon">
+                    <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/rest_restore.png" alt="Rest & Restore">
+                </div>
+                <div class="submenu-text">Rest & Restore</div>
+            </div>
+            <div onclick="window.navigateToUrl('https://www.thezebra.app/c/calming-inside-out/')" class="submenu-item" style="cursor: pointer;">
+                <div class="submenu-icon">
+                    <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/calming_inside_out.png" alt="Calming Inside Out">
+                </div>
+                <div class="submenu-text">Calming Inside Out</div>
+            </div>
+            <div onclick="window.navigateToUrl('https://www.thezebra.app/c/pots-flares/')" class="submenu-item" style="cursor: pointer;">
+                <div class="submenu-icon">
+                    <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/pots_flares.png" alt="POTs & Flares">
+                </div>
+                <div class="submenu-text">POTs & Flares</div>
+            </div>
+            <div onclick="window.navigateToUrl('https://www.thezebra.app/c/feet-lower-limb/')" class="submenu-item" style="cursor: pointer;">
+                <div class="submenu-icon">
+                    <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/feet_icon.png" alt="Feet & Lower Limb">
+                </div>
+                <div class="submenu-text">Feet & Lower Limb</div>
+            </div>
+            <div onclick="window.navigateToUrl('https://www.thezebra.app/c/hips-pelvis/')" class="submenu-item" style="cursor: pointer;">
+                <div class="submenu-icon">
+                    <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/pelvis_icon.png" alt="Hips & Pelvis">
+                </div>
+                <div class="submenu-text">Hips & Pelvis</div>
+            </div>
+            <div onclick="window.navigateToUrl('https://www.thezebra.app/c/shoulder-stability/')" class="submenu-item" style="cursor: pointer;">
+                <div class="submenu-icon">
+                    <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/shoulder_stability.png" alt="Shoulder Stability">
+                </div>
+                <div class="submenu-text">Shoulder Stability</div>
+            </div>
+            <div onclick="window.navigateToUrl('https://www.thezebra.app/c/calendars/')" class="submenu-item" style="cursor: pointer;">
+                <div class="submenu-icon">
+                    <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/calender.png" alt="Calendars">
+                </div>
+                <div class="submenu-text">Calendars</div>
+            </div>
+            <div onclick="window.navigateToUrl('https://www.thezebra.app/c/reformer-foundations/')" class="submenu-item" style="cursor: pointer;">
+                <div class="submenu-icon">
+                    <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/refermer.png" alt="Reformer Foundations">
+                </div>
+                <div class="submenu-text">Reformer Foundations</div>
+            </div>
+        </div>
+
+        /*
+        <div class="submenu-view" id="submenu-events">
+            <div class="submenu-header">
+                <div class="submenu-title">Events</div>
+            </div>
+            <div onclick="window.navigateToUrl('https://www.thezebra.app/c/live-events/')" class="submenu-item" style="cursor: pointer;">
+                <div class="submenu-icon">
+                    <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/events.png" alt="Live Events">
+                </div>
+                <div class="submenu-text">Live Events</div>
+            </div>
+        </div>*/
+
+        <!-- Learn & Grow Submenu -->
+        <div class="submenu-view" id="submenu-learn">
+            <div class="submenu-header">
+                <div class="submenu-title">Learn & Grow</div>
+            </div>
+            <div onclick="window.navigateToUrl('https://www.thezebra.app/c/inside-track-expert-insights/')" class="submenu-item" style="cursor: pointer;">
+                <div class="submenu-icon">
+                    <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/expert.png" alt="Expert Insights">
+                </div>
+                <div class="submenu-text">Expert Insights</div>
+            </div>
+            <div onclick="window.navigateToUrl('https://www.thezebra.app/c/jeannie-s-live-workshops/')" class="submenu-item" style="cursor: pointer;">
+                <div class="submenu-icon">
+                    <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/live_workshop.png" alt="Jeannie's Live Workshops">
+                </div>
+                <div class="submenu-text">Jeannie's Live Workshops</div>
+            </div>
+            <div onclick="window.navigateToUrl('https://www.thezebra.app/c/education-snippets/')" class="submenu-item" style="cursor: pointer;">
+                <div class="submenu-icon">
+                    <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/education_snippets.png" alt="Education Snippets">
+                </div>
+                <div class="submenu-text">Education Snippets</div>
+            </div>
+            <div onclick="window.navigateToUrl('https://www.thezebra.app/c/resource-hub/')" class="submenu-item" style="cursor: pointer;">
+                <div class="submenu-icon">
+                    <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/resourses.png" alt="Resource Hub">
+                </div>
+                <div class="submenu-text">Resource Hub</div>
+            </div>
+            <div onclick="window.navigateToUrl('https://www.thezebra.app/c/jeannie-s-podcast/')" class="submenu-item" style="cursor: pointer;">
+                <div class="submenu-icon">
+                    <img src="https://raw.githubusercontent.com/timrnichols/zebraclub/main/icons/tzc_podcast.png" alt="Jeannie's Podcast">
+                </div>
+                <div class="submenu-text">Jeannie's Podcast</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentView = 'main';
+
+        // Scroll the main page back to top (works better with Circle / Android)
+        function resetMenuScroll() {
+            window.scrollTo(0, 0);
+
+            // run again on the next frame to catch any layout changes
+            requestAnimationFrame(() => {
+                window.scrollTo(0, 0);
+            });
+        }
 
         function showSubmenu(id) {
             // Hide main menu
