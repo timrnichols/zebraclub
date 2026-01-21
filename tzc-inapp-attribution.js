@@ -1,8 +1,6 @@
 // ============================================
 // THE ZEBRA CLUB - IN-APP ATTRIBUTION TRACKER
 // ============================================
-// Paste this into the "JavaScript code snippets" box
-// (without the <script> tags - the platform adds those)
 // ============================================
 
 (function() {
@@ -13,7 +11,7 @@
     // ============================================
     var CONFIG = {
         // Your Zapier webhook for conversion events
-        webhookURL: 'https://hooks.zapier.com/hooks/catch/254357/uq20ek3/',
+        webhookURL: 'ZAP Hook here',
         
         // Enable console logging
         debug: true,
